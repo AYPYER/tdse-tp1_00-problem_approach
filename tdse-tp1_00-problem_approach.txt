@@ -1,7 +1,7 @@
 ﻿Padrón N°: _104262________
-Apellidos, Nombres (responsable): __________YERSON MONZON ALAYO___________
-Grupo N°: _________
-Curso N°: _________
+Apellidos, Nombres (responsable): __________YERSON MONZÓN ALAYO___________
+Grupo N°: ____3_____
+Curso N°: ____1_____
 
 
 TP1-00-02 — Requerimiento del Proyecto (punto de acceso al estacionamiento):
@@ -12,24 +12,39 @@ un conductor llega en su vehículo, la bobina detecta la presencia del automóvi
 
 
 
+
+
+
+
 TP1-00-03 — Modelos (módulos C):
+
+
 - Sensor (escrutar): modelo de un botón binario con antirrebote por temporizador (tick).
+
 - SISTEMA (procesar): une 3 señales de sensores y genera señales de alto nivel hacia el  actuador (barrera) .
+
 - Actuador (actuar): modelo de un LED (encendido/apagado).
 
 
-TP1-00-04 — Sensor: Eventos y Acciones (un botón):
-Eventos (input del modelo): BTN_01: bobina, BTN_02: botón físico de usuario, BTN_03: IR
 
+
+
+TP1-00-04 — Sensor: Eventos y Acciones (un botón):
+
+
+Eventos (input del modelo): BTN_01: bobina, BTN_02: botón físico de usuario, BTN_03: IR
 
 
 
 EV_BTN_01_UP
 EV_BTN_01_DOWN
+
 EV_BTN_02_UP
 EV_BTN_02_DOWN
+
 EV_BTN_03_UP
 EV_BTN_03_DOWN
+
 
 
 
@@ -40,10 +55,8 @@ Acciones:
 op_commuicate_button_01_pressed()
 op_commuicate_button_01_realesed()
 
-
 op_commuicate_button_02_pressed()
 op_commuicate_button_02_realesed()
-
 
 op_commuicate_button_03_pressed()
 op_commuicate_button_03_realesed()
@@ -58,8 +71,6 @@ op_commuicate_button_03_realesed()
 
 
 Señales emitidas al Sistema:
-
-
 
 
 EV_SYS_BTN_01_PRESSED
@@ -78,20 +89,9 @@ EV_SYS_BTN_03_RELEASED
 
 
 
-
-
-
-
-
-
 TP1-00-05 — Tabla de Estados y Excitaciones del Sensor:
 
-
-
-
-https://docs.google.com/spreadsheets/d/1kYEpq4HMm3AZHk6n5hHhjtU61K3sKC7dgYCaoh-rGFg/edit?usp=sharing
-
-
+https://github.com/AYPYER/tdse-tp1_00-problem_approach/blob/main/tdse-tp1_00-problem_approach.xlsx
 
 
 
@@ -101,26 +101,44 @@ https://docs.google.com/spreadsheets/d/1kYEpq4HMm3AZHk6n5hHhjtU61K3sKC7dgYCaoh-r
 
 
 TP1-00-06 — System: Eventos y Acciones (un sistema):
+
+
 Eventos (desde sensores): EV_SYS_BTN_XX_PRESSED, EV_SYS_BTN_XX_RELEASED, [otros si aplica]
+
 Acciones (hacia actuadores): op_sys_on(), op_sys_off(), op_blink_start(), op_blink_stop(), etc.
+
 Temporización: tick / DEL_SYS_XX si tu sistema usa temporizadores.
 
 
+
+
+
 TP1-00-07 — Tabla de Estados y Excitaciones del System:
-[Crear tabla análoga a la del sensor: Current State | Event | [Guard] | Next State | Actions]
+
+
+https://github.com/AYPYER/tdse-tp1_00-problem_approach/blob/main/tdse-tp1_00-problem_approach.xlsx
+
+
+
 
 
 TP1-00-08 — Actuator: Eventos y Acciones (un LED):
+
+
 Eventos (desde System): EV_SYS_LED_ON, EV_SYS_LED_OFF, EV_SYS_LED_BLINK, EV_SYS_LED_PULSE
+
 Acciones (sobre el LED): op_led_on(), op_led_off(), op_led_toggle(), op_led_pulse_n(n)
+
 Timers (si parpadea/pulsa): tick / DEL_LED_XX
 
 
+
+
+
+
 TP1-00-09 — Tabla de Estados y Excitaciones del Actuator:
-[Crear tabla análoga.]
 
 
-Notas:
-- Reemplaza XX por el identificador del botón/led (ej.: 01).
-- Mantén nombres EXACTOS y consistentes entre modelos.
-- Documenta cualquier supuesto (tiempos de debounce, niveles activos, etc.).
+https://github.com/AYPYER/tdse-tp1_00-problem_approach/blob/main/tdse-tp1_00-problem_approach.xlsx
+
+
