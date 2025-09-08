@@ -52,16 +52,6 @@ EV_BTN_03_DOWN
 Acciones: 
 
 
-op_commuicate_button_01_pressed()
-op_commuicate_button_01_realesed()
-
-op_commuicate_button_02_pressed()
-op_commuicate_button_02_realesed()
-
-op_commuicate_button_03_pressed()
-op_commuicate_button_03_realesed()
-
-
 
 
 
