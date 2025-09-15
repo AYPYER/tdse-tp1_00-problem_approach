@@ -1,0 +1,94 @@
+﻿Padrón N°: 104262
+Apellidos, Nombres (responsable): YERSON MONZÓN ALAYO
+Grupo N°: 3
+Curso N°: 1
+
+//--------------------------------------------------------------------------------//
+
+TP1-00-02 — Requerimiento del Proyecto (punto de acceso al estacionamiento):
+
+Un conductor llega en su vehículo, la bobina detecta la presencia del automóvil, el conductor presiona el botón, se activa el motor que levanta la barrera y dicho movimiento de la barrera tarda un cierto tiempo hasta que el motor detiene la barrera. El auto se mueve hasta que la bobina no lo detecta pero el IR si lo detecta, termina de pasar cuando el IR se desactiva y se pone en movimiento el motor para bajar la barrera y posteriormente detenerla. Para volver a empezar.
+
+//--------------------------------------------------------------------------------//
+
+TP1-00-03 — Modelos (módulos C):
+
+- Sensor (escrutar): Este módulo representa los sensores físicos de la cochera (el sensor de bobina magnética, el botón de apertura y el sensor infrarrojo). Su única responsabilidad es filtrar el ruido eléctrico ("antirrebote") de cada señal para proveer eventos limpios y fiables al sistema principal. Para el prototipo, cada sensor del mundo real es modelado mediante un pulsador individual.
+
+- Sistema (procesar): Este es el "cerebro" del proyecto. Contiene toda la lógica del proceso de la barrera. Recibe los eventos ya filtrados de los tres sensores, se basa en la secuencia de operación, gestiona los temporizadores para la apertura/cierre y envía órdenes claras al actuador. No interactúa directamente con el hardware.
+
+- Actuador (actuar): Representa el motor de la barrera (modelado mediante un único LED). Es un módulo reactivo que no contiene lógica de proceso. Su única función es ejecutar las órdenes directas que recibe del Sistema, como "subir", "bajar" o "detenerse".
+
+//--------------------------------------------------------------------------------//
+
+TP1-00-04 — Sensor: Eventos y Acciones (un botón genérico):
+
+Eventos (Inputs físicos al modelo Sensor):
+
+- EV_BTN_XX_DOWN: Señal física que indica que un sensor se ha activado (ej. la bobina detecta metal, el botón es presionado, el haz IR es interrumpido).
+- EV_BTN_XX_UP: Señal física que indica que un sensor se ha desactivado.
+
+Acciones (Outputs lógicos hacia el modelo System):
+- raise EV_SYS_XX_PRESSED: Evento "limpio" generado por el Sensor una vez que el antirrebote ha confirmado una activación estable.
+- raise EV_SYS_XX_RELEASED: Evento "limpio" generado por el Sensor una vez que el antirrebote ha confirmado una desactivación estable.
+
+Instancias en nuestro proyecto real:
+- Sensor 01 (Bobina): EV_SYS_BOBINA_PRESSED, EV_SYS_BOBINA_RELEASED
+- Sensor 02 (Botón de Usuario): EV_SYS_BOTON_PRESSED, EV_SYS_BOTON_RELEASED
+- Sensor 03 (Infrarrojo): EV_SYS_IR_PRESSED, EV_SYS_IR_RELEASED
+
+//--------------------------------------------------------------------------------//
+
+TP1-00-05 — Tabla de Estados y Excitaciones del Sensor:
+
+El diseño detallado se encuentra en la hoja "Sensor" del siguiente archivo Excel:
+https://github.com/AYPYER/tdse-tp1_00-problem_approach/blob/main/tdse-tp1_00-problem_approach.xlsx
+
+//--------------------------------------------------------------------------------//
+
+TP1-00-06 — System: Eventos y Acciones (un sistema):
+
+Eventos (Inputs desde los tres Sensores):
+- EV_SYS_BOBINA_PRESSED / EV_SYS_BOBINA_RELEASED
+- EV_SYS_BOTON_PRESSED / EV_SYS_BOTON_RELEASED
+- EV_SYS_IR_PRESSED / EV_SYS_IR_RELEASED
+- EV_SYS_TICK: Un evento periódico interno que actúa como "latido" del sistema para decrementar los contadores de tiempo.
+
+Acciones (Outputs hacia el Actuador):
+- raise EV_ACT_RAISE_BARRIER: Ordena al motor que comience a subir la barrera.
+- raise EV_ACT_DOWN_BARRIER: Ordena al motor que comience a bajar la barrera.
+- raise EV_ACT_STOP_BARRIER: Ordena al motor que se detenga.
+
+Temporización:
+- El sistema utiliza una variable interna sys_tick para controlar la duración del movimiento de la barrera.
+- La constante TIME_BARRIER define cuántos "ticks" debe durar el movimiento.
+
+//--------------------------------------------------------------------------------//
+
+TP1-00-07 — Tabla de Estados y Excitaciones del System:
+
+El diseño detallado se encuentra en la hoja "System" del siguiente archivo Excel:
+https://github.com/AYPYER/tdse-tp1_00-problem_approach/blob/main/tdse-tp1_00-problem_approach.xlsx
+
+//--------------------------------------------------------------------------------//
+
+TP1-00-08 — Actuator: Eventos y Acciones (un LED):
+
+Eventos (Inputs desde el System):
+- EV_ACT_RAISE_BARRIER: Orden para iniciar el movimiento de subida.
+- EV_ACT_DOWN_BARRIER: Orden para iniciar el movimiento de bajada.
+- EV_ACT_STOP_BARRIER: Orden para detener todo movimiento.
+
+Acciones (Operaciones sobre el hardware):
+- op_LedOn(): Enciende el motor (enciende el LED del prototipo).
+- op_LedOff(): Apaga el motor (apaga el LED del prototipo).
+
+*Temporización:*
+- Este modelo es puramente reactivo y no contiene lógica de temporización propia. Solo ejecuta las órdenes que recibe.
+
+//--------------------------------------------------------------------------------//
+
+TP1-00-09 — Tabla de Estados y Excitaciones del Actuator:
+
+El diseño detallado se encuentra en la hoja "Actuator" del siguiente archivo Excel:
+https://github.com/AYPYER/tdse-tp1_00-problem_approach/blob/main/tdse-tp1_00-problem_approach.xlsx
